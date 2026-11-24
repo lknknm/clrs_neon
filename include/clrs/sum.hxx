@@ -29,13 +29,18 @@ inline std::int64_t sum_scalar(std::span<const std::int32_t> a) noexcept {
 *   tail (a.size() % 4 elements): scalar loop, added to total
 */
 inline std::int64_t sum_neon(std::span<const std::int32_t> a) noexcept {
-    int64x2_t acc = vdupq_n_s64(0);
+    int64x2_t acc0, acc1, acc2, acc3 = vdupq_n_s64(0);
     std::size_t i = 0;
 
-    for (; i + 4 <= a.size(); i += 4)
-        acc = vpadalq_s32(acc, vld1q_s32(a.data() + i));
+    for (; i + 16 <= a.size(); i += 16) {
+        acc0 = vpadalq_s32(acc0, vld1q_s32(a.data() + i));
+        acc1 = vpadalq_s32(acc1, vld1q_s32(a.data() + i + 4));
+        acc2 = vpadalq_s32(acc2, vld1q_s32(a.data() + i + 8));
+        acc3 = vpadalq_s32(acc3, vld1q_s32(a.data() + i + 12));
+    }
 
-    std::int64_t total = vaddvq_s64(acc);    // add the 2 lanes, widened to 64 bits
+    int64x2_t acc = vaddq_s64(vaddq_s64(acc0, acc1), vaddq_s64(acc2, acc3));
+    std::int64_t total = vaddvq_s64(acc);
 
     for (; i < a.size(); i++) total += a[i]; // tail: 0-3 leftover elements
     return total;
