@@ -6,6 +6,8 @@ Not every algorithm in the book suits SIMD. This repository covers the ones that
 
 The algorithm implementations are in the `include` folder, under `include/clrs/`.
 
+For a guide to reading NEON intrinsic names and the intrinsics used in this repository, see the [NEON glossary](docs/neon-glossary.md).
+
 ## How to build
 
 Both platforms need CMake ≥ 3.24 and Clang with C++26 support.
@@ -52,4 +54,6 @@ qemu-aarch64 -L /usr/aarch64-linux-gnu ./build/clang-aarch64/sum_bench --benchma
 
 [1] T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, *Introduction to Algorithms*, 4th ed. Cambridge, MA, USA: MIT Press, 2022.
 
-[2] Arm Ltd., "Neon Programmer's Guide for Armv8-A," Arm Developer Documentation, doc. 102159. [Online]. Available: https://developer.arm.com/documentation/102159/latest
+[2] Arm Ltd., "Neon Programmer's Guide for Armv8-A," Arm Developer Documentation, doc. 102159. Accessed: Nov. 24, 2026. [Online]. Available: https://developer.arm.com/documentation/102159/latest
+
+[3] Arm Ltd., "Arm Intrinsics," Arm Developer. Accessed: Nov. 24, 2026. [Online]. Available: https://developer.arm.com/architectures/instruction-sets/intrinsics
