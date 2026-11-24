@@ -16,6 +16,16 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+set(BENCHMARK_ENABLE_WERROR OFF CACHE BOOL "" FORCE)
+set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "" FORCE)
+FetchContent_Declare(benchmark
+  GIT_REPOSITORY https://github.com/google/benchmark.git
+  GIT_TAG v1.9.1)
+FetchContent_MakeAvailable(benchmark)
+
+target_compile_options(benchmark PRIVATE -Wno-c2y-extensions)
+target_compile_options(benchmark_main PRIVATE -Wno-c2y-extensions)
+
 enable_testing()
 include(GoogleTest)
 
@@ -29,3 +39,12 @@ function(clrs_add_test name)
 endfunction()
 
 clrs_add_test(sum_test)
+
+# ----------------------------------------------------------------------------------------------
+function(clrs_add_bench name)
+    add_executable(${name} benchmarks/${name}.cxx)
+    target_link_libraries(${name} PRIVATE benchmark::benchmark)
+    target_include_directories(${name} PRIVATE include)
+endfunction()
+
+clrs_add_bench(sum_bench)

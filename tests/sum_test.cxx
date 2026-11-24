@@ -13,6 +13,7 @@ TEST_P(SumBySize, MatchesStdReduce) {
     for (auto& x : v) x = dist(rng);
 
     EXPECT_EQ(clrs::sum_scalar(v), std::reduce(v.begin(), v.end(), std::int64_t{0}, std::plus<std::int64_t>{}));
+    EXPECT_EQ(clrs::sum_neon(v), std::reduce(v.begin(), v.end(), std::int64_t{0}, std::plus<std::int64_t>{}));
 }
 
 INSTANTIATE_TEST_SUITE_P(Sizes, SumBySize, ::testing::Range<std::size_t>(0, 65));
