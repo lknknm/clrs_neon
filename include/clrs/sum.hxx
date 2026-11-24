@@ -11,13 +11,32 @@ inline std::int64_t sum_scalar(std::span<const std::int32_t> a) noexcept {
     return total;
 }
 
+/*
+* Sum all elements of an array. AArch64 NEON version.
+*
+* Returns the total sum for all the values in an array.
+*
+* Scheme: elements loaded as 4 x int32, accumulated as 2 x int64.
+*
+*   acc = [   0   |   0   ]             vdupq_n_s64     (2 x int64)
+*
+*   for each group of 4 elements a[i...i+3]
+*       data = [ a0 | a1 | a2 | a3 ]    vld1q_s32       (4 x int32)
+*       acc += [ a0 + a1 | a2 + a3 ]    vpadalq_s32     (pairs widened to int64, then added)
+*
+*   total = acc[0] + acc[1]             vaddvq_s64
+*
+*   tail (a.size() % 4 elements): scalar loop, added to total
+*/
 inline std::int64_t sum_neon(std::span<const std::int32_t> a) noexcept {
-    int64x2_t acc = vdupq_n_s64(0); // 4 lanes, all zero
+    int64x2_t acc = vdupq_n_s64(0);
     std::size_t i = 0;
+
     for (; i + 4 <= a.size(); i += 4)
         acc = vpadalq_s32(acc, vld1q_s32(a.data() + i));
-    
-    std::int64_t total = vaddvq_s64(acc);    // add the 4 lanes, widened to 64 bits
+
+    std::int64_t total = vaddvq_s64(acc);    // add the 2 lanes, widened to 64 bits
+
     for (; i < a.size(); i++) total += a[i]; // tail: 0-3 leftover elements
     return total;
 }
