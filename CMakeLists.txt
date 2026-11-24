@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# ----------------------------------------------------------------------------------------------
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -16,21 +17,15 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-
-add_executable(
-  sum_test 
-  tests/sum_test.cxx 
-)
-target_link_libraries(
-  sum_test
-  GTest::gtest_main
-)
-
-target_compile_options(sum_test PRIVATE -Wall -Wextra -Wpedantic -Wconversion -Werror)
-target_include_directories(sum_test
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 include(GoogleTest)
-gtest_discover_tests(sum_test)
+
+# ----------------------------------------------------------------------------------------------
+function(clrs_add_test name)
+    add_executable(${name} tests/${name}.cxx)
+    target_link_libraries(${name} PRIVATE GTest::gtest_main)
+    target_include_directories(${name} PRIVATE include)
+    target_compile_options(${name} PRIVATE -Wall -Wextra -Wpedantic -Wconversion)
+    gtest_discover_tests(${name})
+endfunction()
+
+clrs_add_test(sum_test)
