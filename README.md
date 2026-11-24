@@ -49,3 +49,5 @@ qemu-aarch64 -L /usr/aarch64-linux-gnu ./build/clang-aarch64/sum_bench --benchma
 ## References
 
 [1] T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, *Introduction to Algorithms*, 4th ed. Cambridge, MA, USA: MIT Press, 2022.
+
+[2] Arm Ltd., "Neon Programmer's Guide for Armv8-A," Arm Developer Documentation, doc. 102159. [Online]. Available: https://developer.arm.com/documentation/102159/latest
