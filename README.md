@@ -4,6 +4,8 @@ Ports of algorithms from *Introduction to Algorithms* (CLRS) [1] to ARM NEON SIM
 
 Not every algorithm in the book suits SIMD. This repository covers the ones that do and tests each NEON port.
 
+The algorithm implementations are in the `include` folder, under `include/clrs/`.
+
 ## How to build
 
 Both platforms need CMake ≥ 3.24 and Clang with C++26 support.
