@@ -23,8 +23,8 @@ FetchContent_Declare(benchmark
   GIT_TAG v1.9.1)
 FetchContent_MakeAvailable(benchmark)
 
-target_compile_options(benchmark PRIVATE -Wno-c2y-extensions)
-target_compile_options(benchmark_main PRIVATE -Wno-c2y-extensions)
+target_compile_options(benchmark PRIVATE -Wno-c2y-extensions -flax-vector-conversions=none)
+target_compile_options(benchmark_main PRIVATE -Wno-c2y-extensions -flax-vector-conversions=none)
 
 enable_testing()
 include(GoogleTest)
@@ -34,7 +34,7 @@ function(clrs_add_test name)
     add_executable(${name} tests/${name}.cxx)
     target_link_libraries(${name} PRIVATE GTest::gtest_main)
     target_include_directories(${name} PRIVATE include)
-    target_compile_options(${name} PRIVATE -Wall -Wextra -Wpedantic -Wconversion)
+    target_compile_options(${name} PRIVATE -Wall -Wextra -Wpedantic -Wconversion -flax-vector-conversions=none)
     gtest_discover_tests(${name})
 endfunction()
 
@@ -49,3 +49,4 @@ function(clrs_add_bench name)
 endfunction()
 
 clrs_add_bench(sum_bench)
+clrs_add_bench(linear_search_bench)
