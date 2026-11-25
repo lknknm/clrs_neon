@@ -3,7 +3,7 @@
 ## Setup
 - Machine: Apple M4 - MacMini 2025
 - Compiler: Homebrew Clang 22.1.4, `-O3 -std=c++26` (CMake Release)
-- Command: `sum_bench \
+- Command: `./sum_bench \
     --benchmark_repetitions=10 --benchmark_report_aggregates_only=true \
     --benchmark_out=results/sum-m1-2026-11-24.json --benchmark_out_format=json`
 - Raw data: [results/sum-m1-2026-11-24.json](../../results/sum-m1-2026-11-24.json)
