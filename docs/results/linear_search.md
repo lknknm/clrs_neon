@@ -8,6 +8,34 @@
     --benchmark_out=results/linear_search-m4-2026-11-24.json --benchmark_out_format=json`
 - Raw data: [results/linear_search-m4-2026-11-24.json](../../results/sum-m1-2026-11-24.json)
 
+## Results:
+
+The following updated results use a 16-wide unroll:
+
+Load 4 vectors (16 × int32), compare each against the broadcast key, OR the 4 masks together in a depth-2 tree, then do a single vmaxvq_u32 + branch per 16 elements. The across-lane reduction and SIMD→GPR transfer are the expensive steps, so the cost is paid once per 16 elements instead of once per 4. Leftovers cascade through a 4-wide loop, then a scalar tail.
+
+Run: 2026-11-26T00:31:25+01:00, 10 CPUs, library build: release
+
+| Size | BM_LinearSearchScalar (G el/s) | BM_LinearSearchNeon (G el/s) | BM_LinearSearchNeon vs BM_LinearSearchScalar |
+|---:|---:|---:|---:|
+| 8 | 3.02 | 4.70 | 1.56× |
+| 64 | 3.31 | 20.03 | 6.05× |
+| 512 | 3.28 | 22.42 | 6.83× |
+| 4096 | 3.48 | 22.45 | 6.44× |
+| 32768 | 3.51 | 22.52 | 6.41× |
+| 262144 | 3.53 | 22.44 | 6.36× |
+| 1048576 | 3.52 | 22.35 | 6.35× |
+
+---
+
+## Setup
+- Machine: Apple M4 - MacMini 2025
+- Compiler: Homebrew Clang 22.1.4, `-O3 -std=c++26` (CMake Release)
+- Command: `./linear_search \
+    --benchmark_repetitions=10 --benchmark_report_aggregates_only=true \
+    --benchmark_out=results/linear_search-m4-2026-11-24.json --benchmark_out_format=json`
+- Raw data: [results/linear_search-m4-2026-11-24.json](../../results/sum-m1-2026-11-24.json)
+
 ## Results (median of 10)
 Run: 2026-11-25T17:13:10+01:00, 10 CPUs, library build: release
 
