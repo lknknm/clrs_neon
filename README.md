@@ -57,3 +57,9 @@ qemu-aarch64 -L /usr/aarch64-linux-gnu ./build/clang-aarch64/sum_bench --benchma
 [2] Arm Ltd., "Neon Programmer's Guide for Armv8-A," Arm Developer Documentation, doc. 102159. Accessed: Nov. 24, 2026. [Online]. Available: https://developer.arm.com/documentation/102159/latest
 
 [3] Arm Ltd., "Arm Intrinsics," Arm Developer. Accessed: Nov. 24, 2026. [Online]. Available: https://developer.arm.com/architectures/instruction-sets/intrinsics
+
+[4] D. E. Knuth, *The Art of Computer Programming, Vol. 3: Sorting and Searching*, 2nd ed. Reading, MA, USA: Addison-Wesley, 1998, sec. 5.3.4, "Networks for sorting."
+
+[5] "Sorting network," Wikipedia. Accessed: Nov. 26, 2026. [Online]. Available: https://en.wikipedia.org/wiki/Sorting_network
+
+[6] H. Inoue and K. Taura, "SIMD- and cache-friendly algorithm for sorting an array of structures," *Proc. VLDB Endow.*, vol. 8, no. 11, pp. 1274–1285, Jul. 2015.

@@ -7,8 +7,8 @@ Algorithms from *Introduction to Algorithms* (CLRS), 4th edition, that suit NEON
 | Ch. | Algorithm | NEON idea | Status |
 |---|---|---|---|
 | 2 | [Linear search](../include/clrs/linear_search.hxx) | Compare 4 at once, early exit on mask | done (~6.35×) |
-| 2 | Insertion sort | Replace small sorts with a sorting network | next ideas |
-| 2 | Merge (merge sort) | Bitonic merge network | |
+| 2 | Insertion sort | Replace small sorts with a [sorting network](#sorting-networks) | next ideas |
+| 2 | Merge (merge sort) | [Bitonic merge network](#sorting-networks) | |
 | 4 | Matrix multiplication | Broadcast + FMA, register blocking | |
 | 9 | Simultaneous min/max | `vminq`/`vmaxq` with several accumulators, like the [`sum` port](../include/clrs/sum.hxx) | |
 | 18 | B-tree node search | Compare all keys in a node, count matches | |
@@ -17,6 +17,14 @@ Algorithms from *Introduction to Algorithms* (CLRS), 4th edition, that suit NEON
 | 30 | FFT | Complex butterflies with FMA | |
 | 32 | Naive string matching | Compare first and last byte, 16 positions at once | |
 | 33 | k-means | Distance computations | |
+
+### Sorting networks
+
+Background for the insertion sort and merge rows. The numbers are the entries in the [README references](../README.md#references).
+
+- Knuth, TAOCP vol. 3, §5.3.4 "Networks for sorting" [4]: the theory of sorting networks.
+- Wikipedia, "Sorting network" [5]: lists the optimal networks for small *n*.
+- Inoue & Taura, VLDB 2015 [6]: the full pipeline of sorting columns, transposing, then merging.
 
 ## Partial: only part of the algorithm vectorises
 
