@@ -40,6 +40,7 @@ endfunction()
 
 clrs_add_test(sum_test)
 clrs_add_test(linear_search_test)
+clrs_add_test(insertion_sort_test)
 
 # ----------------------------------------------------------------------------------------------
 function(clrs_add_bench name)
