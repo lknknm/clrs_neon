@@ -6,7 +6,7 @@ Not every algorithm in the book suits SIMD. This repository covers the ones that
 
 The algorithm implementations are in the `include` folder, under `include/clrs/`.
 
-For a guide to reading NEON intrinsic names and the intrinsics used in this repository, see the [NEON glossary](docs/neon-glossary.md).
+For a guide to reading NEON intrinsic names and the intrinsics used in this repository, see the [NEON glossary](docs/neon-glossary.md). For the CLRS algorithms that suit NEON and the status of each port, see [Vectorisable algorithms](docs/vectorisable-algorithms.md).
 
 ## How to build
 
